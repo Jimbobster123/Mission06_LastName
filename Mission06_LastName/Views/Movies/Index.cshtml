@@ -1,18 +1,37 @@
-@model TModel
+@model List<Mission06_LastName.Models.Movie>
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Movie List";
 }
 
-<!DOCTYPE html>
+<h1>Movie List</h1>
 
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
-<div>
-      
-</div>
-</body>
-</html>
+<table border="1" cellpadding="6" cellspacing="0">
+    <thead>
+    <tr>
+        <th>Category</th>
+        <th>Title</th>
+        <th>Year</th>
+        <th>Director</th>
+        <th>Rating</th>
+        <th>Edited</th>
+        <th>Lent To</th>
+        <th>Notes</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var m in Model)
+    {
+        <tr>
+            <td>@m.Category?.Name</td>
+            <td>@m.Title</td>
+            <td>@m.Year</td>
+            <td>@m.Director</td>
+            <td>@m.Rating</td>
+            <td>@(m.Edited ? "Yes" : "No")</td>
+            <td>@m.LentTo</td>
+            <td>@m.Notes</td>
+        </tr>
+    }
+    </tbody>
+</table>
