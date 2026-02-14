@@ -3,7 +3,9 @@ using System.ComponentModel.DataAnnotations;
 namespace Mission06_LastName.Models
 {
     public class Movie
-    {
+    {// Movie.cs
+// Represents a movie in Joel's collection.
+
         public int MovieId { get; set; }
 
         [Required(ErrorMessage = "Title is required.")]

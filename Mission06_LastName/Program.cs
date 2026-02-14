@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Mission06_LastName.Data;
-
+// Program.cs
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
+// Configures services and middleware for the Joel Hilton Film Collection web app.
 
+builder.Services.AddControllersWithViews();
+// Sets up MVC, connects to SQLite using Entity Framework Core,
 builder.Services.AddDbContext<MovieCollectionContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("MovieConnection")));
 

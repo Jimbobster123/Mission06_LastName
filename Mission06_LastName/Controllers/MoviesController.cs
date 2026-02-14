@@ -4,6 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Mission06_LastName.Data;
 using Mission06_LastName.Models;
 
+// MoviesController.cs
+// Handles all movie-related actions including:
+// - Displaying movie list
+// - Showing the Create form
+// - Saving new movies to the database
+
 namespace Mission06_LastName.Controllers
 {
     public class MoviesController : Controller
