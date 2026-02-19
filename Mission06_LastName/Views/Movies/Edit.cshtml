@@ -1,0 +1,85 @@
+@model Mission06_LastName.Models.Movie
+
+@{
+    ViewData["Title"] = "Edit Movie";
+}
+
+<h2 class="mb-3">Edit Movie</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="MovieId" />
+
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Year" class="form-label"></label>
+        <input asp-for="Year" class="form-control" type="number" min="1888" />
+        <span asp-validation-for="Year" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Categories">
+            <option value="">-- Optional --</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Director" class="form-label"></label>
+        <input asp-for="Director" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Rating" class="form-label"></label>
+        <input asp-for="Rating" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Edited *</label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" asp-for="Edited" value="true" id="editedYes" />
+            <label class="form-check-label" for="editedYes">Yes</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" asp-for="Edited" value="false" id="editedNo" />
+            <label class="form-check-label" for="editedNo">No</label>
+        </div>
+        <span asp-validation-for="Edited" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="LentTo" class="form-label"></label>
+        <input asp-for="LentTo" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Copied To Plex *</label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" asp-for="CopiedToPlex" value="true" id="plexYes" />
+            <label class="form-check-label" for="plexYes">Yes</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" asp-for="CopiedToPlex" value="false" id="plexNo" />
+            <label class="form-check-label" for="plexNo">No</label>
+        </div>
+        <span asp-validation-for="CopiedToPlex" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Notes" class="form-label"></label>
+        <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

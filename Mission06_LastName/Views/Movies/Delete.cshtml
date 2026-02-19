@@ -1,0 +1,17 @@
+@model Mission06_LastName.Models.Movie
+
+@{
+    ViewData["Title"] = "Delete Movie";
+}
+
+<h2 class="text-danger mb-3">Delete Movie</h2>
+
+<div class="alert alert-warning">
+    Are you sure you want to delete <strong>@Model.Title</strong> (@Model.Year)?
+</div>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" name="movieId" value="@Model.MovieId" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

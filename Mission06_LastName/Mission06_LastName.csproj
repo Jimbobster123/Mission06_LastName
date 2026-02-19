@@ -19,7 +19,14 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="App_Data\" />
       <Folder Include="wwwroot\img\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="App_Data\joelhilton.sqlite">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

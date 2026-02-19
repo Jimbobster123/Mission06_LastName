@@ -4,12 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Mission06_LastName.Data;
 using Mission06_LastName.Models;
 
-// MoviesController.cs
-// Handles all movie-related actions including:
-// - Displaying movie list
-// - Showing the Create form
-// - Saving new movies to the database
-
 namespace Mission06_LastName.Controllers
 {
     public class MoviesController : Controller
@@ -21,7 +15,7 @@ namespace Mission06_LastName.Controllers
             _context = context;
         }
 
-        // Optional list page (nice for checking your DB)
+        // LIST: /Movies
         public IActionResult Index()
         {
             var movies = _context.Movies
@@ -32,29 +26,73 @@ namespace Mission06_LastName.Controllers
             return View(movies);
         }
 
+        // EDIT GET: /Movies/Edit/5
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Edit(int id)
         {
-            ViewBag.Categories = new SelectList(_context.Categories.OrderBy(c => c.Name), "CategoryId", "Name");
-            return View(new Movie());
+            var movie = _context.Movies.FirstOrDefault(m => m.MovieId == id);
+            if (movie == null) return NotFound();
+
+            ViewBag.Categories = new SelectList(
+                _context.Categories.OrderBy(c => c.CategoryName),
+                "CategoryId",
+                "CategoryName",
+                movie.CategoryId
+            );
+
+            return View(movie);
         }
 
+        // EDIT POST: /Movies/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Movie movie)
+        public IActionResult Edit(int id, Movie updatedMovie)
         {
-            // Rebuild dropdown if validation fails
-            ViewBag.Categories = new SelectList(_context.Categories.OrderBy(c => c.Name), "CategoryId", "Name");
+            if (id != updatedMovie.MovieId) return BadRequest();
+
+            ViewBag.Categories = new SelectList(
+                _context.Categories.OrderBy(c => c.CategoryName),
+                "CategoryId",
+                "CategoryName",
+                updatedMovie.CategoryId
+            );
 
             if (!ModelState.IsValid)
             {
-                return View(movie);
+                return View(updatedMovie);
             }
 
-            _context.Movies.Add(movie);
+            _context.Movies.Update(updatedMovie);
             _context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
+        }
+
+        // DELETE GET: /Movies/Delete/5
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var movie = _context.Movies
+                .Include(m => m.Category)
+                .FirstOrDefault(m => m.MovieId == id);
+
+            if (movie == null) return NotFound();
+
+            return View(movie);
+        }
+
+        // DELETE POST: /Movies/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int movieId)
+        {
+            var movie = _context.Movies.FirstOrDefault(m => m.MovieId == movieId);
+            if (movie == null) return NotFound();
+
+            _context.Movies.Remove(movie);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -1,17 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using Mission06_LastName.Models;
-// MovieCollectionContext.cs
-// Defines the database context for the application.
-
 
 namespace Mission06_LastName.Data
 {
+    // Defines the database context for the Joel Hilton Movie Collection app
     public class MovieCollectionContext : DbContext
     {
         public MovieCollectionContext(DbContextOptions<MovieCollectionContext> options)
             : base(options)
-        { }
-// Configures EF Core to manage Movies and Categories tables.
+        {
+        }
+
+        // Tables
         public DbSet<Movie> Movies => Set<Movie>();
         public DbSet<Category> Categories => Set<Category>();
 
@@ -19,9 +19,9 @@ namespace Mission06_LastName.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Keep Category name unique (good normalization hygiene)
+            // Make CategoryName unique
             modelBuilder.Entity<Category>()
-                .HasIndex(c => c.Name)
+                .HasIndex(c => c.CategoryName)
                 .IsUnique();
         }
     }

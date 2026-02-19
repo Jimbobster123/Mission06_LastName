@@ -1,12 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using Mission06_LastName.Data;
-// Program.cs
+using Mission06_LastName.Data; // keep this if your project namespace is still Mission06_LastName
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Configures services and middleware for the Joel Hilton Film Collection web app.
-
 builder.Services.AddControllersWithViews();
-// Sets up MVC, connects to SQLite using Entity Framework Core,
+
 builder.Services.AddDbContext<MovieCollectionContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("MovieConnection")));
 
@@ -19,15 +17,6 @@ if (!app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseRouting();
-
-// Create DB / apply migrations / seed
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<MovieCollectionContext>();
-    context.Database.Migrate();
-    DbInitializer.Seed(context);
-}
 
 app.MapControllerRoute(
     name: "default",
