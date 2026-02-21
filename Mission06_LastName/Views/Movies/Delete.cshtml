@@ -1,17 +1,28 @@
 @model Mission06_LastName.Models.Movie
 
 @{
+    // Sets the page title
     ViewData["Title"] = "Delete Movie";
 }
 
+<!-- Page header -->
 <h2 class="text-danger mb-3">Delete Movie</h2>
 
+<!-- Warning message asking for confirmation -->
 <div class="alert alert-warning">
-    Are you sure you want to delete <strong>@Model.Title</strong> (@Model.Year)?
+    Are you sure you want to delete 
+    <strong>@Model.Title</strong> (@Model.Year)?
 </div>
 
+<!-- Form posts to DeleteConfirmed action in MoviesController -->
 <form asp-action="DeleteConfirmed" method="post">
+
+    <!-- Hidden field sends MovieId back to controller -->
     <input type="hidden" name="movieId" value="@Model.MovieId" />
+
+    <!-- Delete button -->
     <button type="submit" class="btn btn-danger">Delete</button>
+
+    <!-- Cancel returns to movie list -->
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>

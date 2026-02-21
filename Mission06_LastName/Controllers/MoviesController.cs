@@ -25,6 +25,44 @@ namespace Mission06_LastName.Controllers
 
             return View(movies);
         }
+        
+        
+        // CREATE GET: /Movies/Create
+        [HttpGet]
+        public IActionResult Create()
+        {
+            ViewBag.Categories = new SelectList(
+                _context.Categories.OrderBy(c => c.CategoryName),
+                "CategoryId",
+                "CategoryName"
+            );
+
+            return View();
+        }
+        
+        // CREATE POST: /Movies/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Movie movie)
+        {
+            ViewBag.Categories = new SelectList(
+                _context.Categories.OrderBy(c => c.CategoryName),
+                "CategoryId",
+                "CategoryName",
+                movie.CategoryId
+            );
+
+            if (!ModelState.IsValid)
+            {
+                return View(movie);
+            }
+
+            _context.Movies.Add(movie);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+        
 
         // EDIT GET: /Movies/Edit/5
         [HttpGet]

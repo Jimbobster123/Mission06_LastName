@@ -1,28 +1,37 @@
 @model Mission06_LastName.Models.Movie
 
 @{
+    // Sets the page title
     ViewData["Title"] = "Edit Movie";
 }
 
+<!-- Page header -->
 <h2 class="mb-3">Edit Movie</h2>
 
+<!-- Form posts to Edit action in MoviesController -->
 <form asp-action="Edit" method="post">
+
+    <!-- Hidden field sends MovieId back to controller -->
     <input type="hidden" asp-for="MovieId" />
 
+    <!-- Displays validation errors -->
     <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
+    <!-- Title field -->
     <div class="mb-3">
         <label asp-for="Title" class="form-label"></label>
         <input asp-for="Title" class="form-control" />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
 
+    <!-- Year field with minimum value validation -->
     <div class="mb-3">
         <label asp-for="Year" class="form-label"></label>
         <input asp-for="Year" class="form-control" type="number" min="1888" />
         <span asp-validation-for="Year" class="text-danger"></span>
     </div>
 
+    <!-- Category dropdown populated from ViewBag -->
     <div class="mb-3">
         <label class="form-label">Category</label>
         <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Categories">
@@ -30,16 +39,19 @@
         </select>
     </div>
 
+    <!-- Director field -->
     <div class="mb-3">
         <label asp-for="Director" class="form-label"></label>
         <input asp-for="Director" class="form-control" />
     </div>
 
+    <!-- Rating field -->
     <div class="mb-3">
         <label asp-for="Rating" class="form-label"></label>
         <input asp-for="Rating" class="form-control" />
     </div>
 
+    <!-- Edited radio buttons (required field) -->
     <div class="mb-3">
         <label class="form-label">Edited *</label>
         <div class="form-check">
@@ -53,11 +65,7 @@
         <span asp-validation-for="Edited" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="LentTo" class="form-label"></label>
-        <input asp-for="LentTo" class="form-control" />
-    </div>
-
+    <!-- CopiedToPlex radio buttons (required field) -->
     <div class="mb-3">
         <label class="form-label">Copied To Plex *</label>
         <div class="form-check">
@@ -71,15 +79,24 @@
         <span asp-validation-for="CopiedToPlex" class="text-danger"></span>
     </div>
 
+    <!-- LentTo field -->
+    <div class="mb-3">
+        <label asp-for="LentTo" class="form-label"></label>
+        <input asp-for="LentTo" class="form-control" />
+    </div>
+
+    <!-- Notes textarea -->
     <div class="mb-3">
         <label asp-for="Notes" class="form-label"></label>
         <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
     </div>
 
+    <!-- Submit and cancel buttons -->
     <button type="submit" class="btn btn-success">Save</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
 
 @section Scripts {
+    <!-- Loads client-side validation scripts -->
     <partial name="_ValidationScriptsPartial" />
 }
